@@ -2,6 +2,12 @@
 
 Explain what this is
 
+## Prerequisites
+
+### Java 17
+Explain how to install and how to configure IntelliJ
+
+
 ## How to run locally
 
 ### Run the local postgres database
