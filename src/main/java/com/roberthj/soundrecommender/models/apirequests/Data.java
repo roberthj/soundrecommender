@@ -12,5 +12,5 @@ public class Data {
     private int bpm;
     private ArrayList<String> genres;
     private int duration_in_seconds;
-    private ArrayList<Credit> credits;
+    private ArrayList<Credits> credits;
 }

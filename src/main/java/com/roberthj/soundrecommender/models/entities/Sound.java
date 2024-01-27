@@ -4,13 +4,15 @@ import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Data;
 
+import java.util.List;
+
 @Data
-@Builder
 @Entity
 @Table(name="sounds")
 public class Sound {
+
     @Id
-    @GeneratedValue(strategy= GenerationType.UUID)
+    @GeneratedValue(strategy=GenerationType.UUID)
     @Column(name = "id")
     private String id;
 
@@ -22,4 +24,11 @@ public class Sound {
 
     @Column(name = "duration_in_seconds")
     private int durationInSeconds;
+
+    @Transient
+    private List<Credit> credits;
+
+    @Transient
+    private List<Genre> genres;
+
 }
