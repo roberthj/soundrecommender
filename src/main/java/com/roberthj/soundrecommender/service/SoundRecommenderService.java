@@ -6,6 +6,8 @@ import com.roberthj.soundrecommender.repository.GenresDAO;
 import com.roberthj.soundrecommender.repository.SoundDAO;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class SoundRecommenderService {
 
@@ -40,12 +42,6 @@ public class SoundRecommenderService {
             var dd = soundDAO.findById(updated.getId()).get();
 
 
-
-
-
-
-
-
            var all = soundDAO.findAll();
 
     System.out.println();
@@ -57,5 +53,12 @@ public class SoundRecommenderService {
     // Fetch and return item
 
     return sound;
+    }
+
+    public List<Sound> getSounds(){
+
+       var ss =  soundDAO.findAll();
+
+       return ss;
     }
 }

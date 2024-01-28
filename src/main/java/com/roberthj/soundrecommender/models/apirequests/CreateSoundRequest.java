@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 @Getter
 @Setter
-public class CreateSoundPayload {
+public class CreateSoundRequest {
 
     public ArrayList<Data> data;
 

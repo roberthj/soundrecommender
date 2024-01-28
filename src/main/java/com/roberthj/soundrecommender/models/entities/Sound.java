@@ -25,7 +25,8 @@ public class Sound {
     @Column(name = "duration_in_seconds")
     private int durationInSeconds;
 
-    @Transient
+    @OneToMany
+    @JoinColumn(name="sound_id")
     private List<Credit> credits;
 
     @OneToMany

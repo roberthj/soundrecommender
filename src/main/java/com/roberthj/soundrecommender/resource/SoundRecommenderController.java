@@ -1,16 +1,16 @@
 package com.roberthj.soundrecommender.resource;
 
-import com.roberthj.soundrecommender.models.apirequests.CreateSoundPayload;
-import com.roberthj.soundrecommender.models.entities.Credit;
-import com.roberthj.soundrecommender.models.entities.Genre;
-import com.roberthj.soundrecommender.models.entities.Sound;
+import com.roberthj.soundrecommender.models.apirequests.CreateSoundRequest;
+import com.roberthj.soundrecommender.models.apiresponses.SoundResponse;
 import com.roberthj.soundrecommender.service.SoundRecommenderService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.UUID;
-import java.util.stream.Collectors;
+import java.util.List;
+
+import static com.roberthj.soundrecommender.utils.ObjectMappers.mapCreateSoundRequestToSound;
+import static com.roberthj.soundrecommender.utils.ObjectMappers.mapSoundToSoundResponse;
 
 @RestController
 // @RequestMapping("/v1") //I wanted to add versioning here, but did not want to break the postman
@@ -31,56 +31,27 @@ public class SoundRecommenderController {
   }
 
   @PostMapping(value = "/admin/sounds")
-  public ResponseEntity<String> createSound(
-      @RequestBody final CreateSoundPayload createSoundPayload) {
+  public ResponseEntity<SoundResponse> createSound(
+      @RequestBody final CreateSoundRequest createSoundRequest) {
 
     // Validate payload
+    // Try Alex's validation framework
 
-    // Map to entity
+    var createdSound =
+        soundRecommenderService.createSound(mapCreateSoundRequestToSound(createSoundRequest));
 
-    // Pass entity to service
-
-    var tmp = soundRecommenderService.createSound(mapToEntity(createSoundPayload));
-
-    return null;
+    return ResponseEntity.status(HttpStatus.CREATED)
+        .body(mapSoundToSoundResponse(List.of(createdSound)));
   }
 
-  private Sound mapToEntity(CreateSoundPayload createSoundPayload) {
-    var data = createSoundPayload.getData();
-    var cred = data.get(0).getCredits();
-    var gen = data.get(0).getGenres();
+  @GetMapping(value = "/sounds")
+  public ResponseEntity<SoundResponse> getSounds() {
 
-    // TODO: fix these get(0)
+    // Validate payload
+    // Try Alex's validation framework
 
-    var genres =
-        gen.stream()
-            .map(
-                g -> {
-                  var genre = new Genre();
-                  genre.setGenre(g);
-                  return genre;
-                })
-            .collect(Collectors.toList());
+    var sounds = soundRecommenderService.getSounds();
 
-    var credits =
-        cred.stream()
-            .map(
-                c -> {
-                  var credit = new Credit();
-                  credit.setRole(c.getRole());
-                  credit.setName(c.getName());
-                  return credit;
-                })
-            .collect(Collectors.toList());
-
-    var sound = new Sound();
-
-    sound.setTitle(data.get(0).getTitle());
-    sound.setBpm(data.get(0).getBpm());
-    sound.setDurationInSeconds(data.get(0).getDuration_in_seconds());
-    sound.setGenres(genres);
-    sound.setCredits(credits);
-
-    return sound;
+    return ResponseEntity.status(HttpStatus.OK).body(mapSoundToSoundResponse(sounds));
   }
 }
