@@ -25,6 +25,7 @@ public class SoundRecommenderService {
             var genres = sound.getGenres();
 
            var updated = soundDAO.save(sound);
+
             credits.forEach(credit -> {
                 credit.setSoundId(updated.getId());
                 creditsDAO.save(credit);
@@ -35,6 +36,8 @@ public class SoundRecommenderService {
                 genre.setSoundId(updated.getId());
                 genresDAO.save(genre);
             });
+
+            var dd = soundDAO.findById(updated.getId()).get();
 
 
 
