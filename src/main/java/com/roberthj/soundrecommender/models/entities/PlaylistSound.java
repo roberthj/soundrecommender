@@ -6,19 +6,18 @@ import lombok.Data;
 import java.util.List;
 
 @Data
-@Entity(name="Playlist")
-@Table(name="playlists")
-public class Playlist {
+@Entity(name="PlaylistSound")
+@Table(name="playlists_sounds")
+public class PlaylistSound {
     @Id
     @GeneratedValue(strategy= GenerationType.UUID)
     @Column(name = "id")
     private String id;
 
-    @Column(name = "title")
-    private String title;
+    @Column(name = "playlist_id")
+    private String playlistId;
 
-    @OneToMany
-    @JoinColumn(name="playlist_id")
-    private List<PlaylistSound> soundIds;
+    @Column(name = "sound_id")
+    private String soundId;
 
 }

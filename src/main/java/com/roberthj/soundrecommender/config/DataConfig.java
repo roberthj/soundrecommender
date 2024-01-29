@@ -8,5 +8,5 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @Configuration
 @ComponentScan(basePackages = "com.roberthj.soundrecommender")
 @EntityScan(basePackages = "com.roberthj.soundrecommender")
-@EnableJpaRepositories(basePackages = "com.roberthj.soundrecommender")
+@EnableJpaRepositories(basePackages = "com.roberthj.soundrecommender.repository")
 public class DataConfig {}

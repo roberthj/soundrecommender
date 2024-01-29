@@ -1,12 +1,13 @@
 package com.roberthj.soundrecommender.utils;
 
-import com.roberthj.soundrecommender.models.apirequests.CreateSoundRequest;
-import com.roberthj.soundrecommender.models.apirequests.Credits;
-import com.roberthj.soundrecommender.models.apiresponses.Data;
-import com.roberthj.soundrecommender.models.apiresponses.SoundResponse;
-import com.roberthj.soundrecommender.models.entities.Credit;
-import com.roberthj.soundrecommender.models.entities.Genre;
-import com.roberthj.soundrecommender.models.entities.Sound;
+import com.roberthj.soundrecommender.models.entities.*;
+import com.roberthj.soundrecommender.models.playlistapirequests.CreatePlaylistRequest;
+import com.roberthj.soundrecommender.models.playlistapiresponse.PlaylistResponse;
+import com.roberthj.soundrecommender.models.playlistapiresponse.PlaylistResponseData;
+import com.roberthj.soundrecommender.models.soundapirequests.CreateSoundRequest;
+import com.roberthj.soundrecommender.models.soundapirequests.Credits;
+import com.roberthj.soundrecommender.models.soundapiresponses.SoundResponse;
+import com.roberthj.soundrecommender.models.soundapiresponses.SoundResponseData;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -62,7 +63,7 @@ public class ObjectMappers {
     return soundResponse;
   }
 
-  private static Data mapSoundToData(Sound sound) {
+  private static SoundResponseData mapSoundToData(Sound sound) {
 
     var credits =
         sound.getCredits().stream()
@@ -77,15 +78,75 @@ public class ObjectMappers {
 
     var genres = sound.getGenres().stream().map(Genre::getGenre).collect(Collectors.toList());
 
-    Data data = new Data();
+    SoundResponseData soundResponseData = new SoundResponseData();
 
-    data.setId(sound.getId());
-    data.setTitle(sound.getTitle());
-    data.setBpm(sound.getBpm());
-    data.setDuration_in_seconds(sound.getDurationInSeconds());
-    data.setGenres(genres);
-    data.setCredits(credits);
+    soundResponseData.setId(sound.getId());
+    soundResponseData.setTitle(sound.getTitle());
+    soundResponseData.setBpm(sound.getBpm());
+    soundResponseData.setDuration_in_seconds(sound.getDurationInSeconds());
+    soundResponseData.setGenres(genres);
+    soundResponseData.setCredits(credits);
 
-    return data;
+    return soundResponseData;
   }
+
+  public static Playlist mapCreatePlaylistRequestToPlaylist(CreatePlaylistRequest createPlaylistRequest){
+
+      var data = createPlaylistRequest.getData().get(0);
+      var soundIds =
+              data.getSounds()
+                      .stream()
+                      .toList();
+
+      var soundsIds =
+              data.getSounds().stream()
+                      .map(
+                              c -> {
+                                  var playlistSounds = new PlaylistSound();
+                                  playlistSounds.setSoundId(c);
+                                  return playlistSounds;
+                              })
+                      .toList();
+
+
+
+      var playlist = new Playlist();
+
+      playlist.setTitle(data.getTitle());
+      playlist.setSoundIds(soundsIds);
+
+      return playlist;
+
+  }
+    public static PlaylistResponse mapPlaylistToPlaylistResponse(List<Playlist> playlist){
+
+        var playlistResponseData = playlist.stream().map(ObjectMappers::mapPlaylistToPlaylistResponseData).toList();
+        var playlistResponse = new PlaylistResponse();
+
+        playlistResponse.setData(playlistResponseData);
+
+        return playlistResponse;
+
+    }
+
+
+    private static PlaylistResponseData mapPlaylistToPlaylistResponseData(Playlist playlist){
+
+      var soundIds =
+              playlist
+                      .getSoundIds()
+                      .stream()
+                      .map(PlaylistSound::getSoundId)
+                      .toList();
+
+        var playlistResponseData = new PlaylistResponseData();
+            playlistResponseData.setId(playlist.getId());
+            playlistResponseData.setTitle((playlist.getTitle()));
+            playlistResponseData.setSoundIds(soundIds);
+
+
+
+        return playlistResponseData;
+
+    }
 }

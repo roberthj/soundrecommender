@@ -9,13 +9,13 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class SoundRecommenderService {
+public class SoundService {
 
     private final SoundDAO soundDAO;
     private final CreditsDAO creditsDAO;
     private final GenresDAO genresDAO;
 
-    public SoundRecommenderService(SoundDAO soundDAO, CreditsDAO creditsDAO, GenresDAO genresDAO) {
+    public SoundService(SoundDAO soundDAO, CreditsDAO creditsDAO, GenresDAO genresDAO) {
         this.soundDAO = soundDAO;
         this.creditsDAO = creditsDAO;
         this.genresDAO = genresDAO;

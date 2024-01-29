@@ -12,8 +12,8 @@ public class Credit {
     @Id
     @GeneratedValue(strategy=GenerationType.UUID)
     @Column(name = "id")
-
     private String id;
+
     @Column(name="sound_id")
     private String soundId;
 
