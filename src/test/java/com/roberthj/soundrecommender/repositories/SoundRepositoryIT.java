@@ -5,6 +5,7 @@ import com.roberthj.soundrecommender.models.entities.Credit;
 import com.roberthj.soundrecommender.models.entities.Genre;
 import com.roberthj.soundrecommender.models.entities.Sound;
 import org.hibernate.Hibernate;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -27,6 +28,36 @@ public class SoundRepositoryIT {
     public static final int BPM = 120;
     public static final int DURATION_IN_SECONDS = 160;
     @Autowired SoundRepository soundRepository;
+
+    @Test
+    @Transactional
+    void shouldSaveToRepositoryAndFetchAllShouldGetAll() {
+
+        var sound = mockedSound(null);
+
+        var credits = sound.getCredits();
+        var genres = sound.getGenres();
+        genres.forEach(genre -> genre.setSound(sound));
+        credits.forEach(credit -> credit.setSound(sound));
+
+        soundRepository.save(sound);
+
+        var sound2 = mockedSound(null);
+
+        var credits2 = sound2.getCredits();
+        var genres2 = sound2.getGenres();
+        genres2.forEach(genre2 -> genre2.setSound(sound2));
+        credits2.forEach(credit2 -> credit2.setSound(sound2));
+
+
+        soundRepository.save(sound2);
+
+        var fetchedSound = soundRepository.findAll();
+
+        assertEquals(2, fetchedSound.size());
+
+
+    }
 
     @Test
     @Transactional
@@ -53,6 +84,7 @@ public class SoundRepositoryIT {
                 fetchedSound.getCredits().get(0).getSound().getId());
 
   }
+
 
     private Sound mockedSound(String soundId) {
 
