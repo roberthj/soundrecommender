@@ -1,9 +1,9 @@
-package com.roberthj.soundrecommender.resource;
+package com.roberthj.soundrecommender.controllers;
 
 import com.roberthj.soundrecommender.models.sounddtos.CreateSoundRequest;
 import com.roberthj.soundrecommender.models.sounddtos.SoundResponse;
-import com.roberthj.soundrecommender.service.RecommendationService;
-import com.roberthj.soundrecommender.service.SoundService;
+import com.roberthj.soundrecommender.services.RecommendationService;
+import com.roberthj.soundrecommender.services.SoundService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

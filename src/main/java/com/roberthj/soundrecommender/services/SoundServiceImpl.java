@@ -1,4 +1,4 @@
-package com.roberthj.soundrecommender.service;
+package com.roberthj.soundrecommender.services;
 
 import com.roberthj.soundrecommender.models.entities.Sound;
 import com.roberthj.soundrecommender.repositories.CreditsRepository;

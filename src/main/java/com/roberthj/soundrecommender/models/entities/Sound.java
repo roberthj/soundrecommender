@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Data
-@Entity(name="Sound")
+@Entity
 @Table(name="sounds")
 public class Sound {
 

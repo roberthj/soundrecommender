@@ -6,7 +6,7 @@ import lombok.Data;
 import java.util.List;
 
 @Data
-@Entity(name="Playlist")
+@Entity
 @Table(name="playlists")
 public class Playlist {
     @Id

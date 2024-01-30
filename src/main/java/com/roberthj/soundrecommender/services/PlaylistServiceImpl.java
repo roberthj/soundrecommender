@@ -1,4 +1,4 @@
-package com.roberthj.soundrecommender.service;
+package com.roberthj.soundrecommender.services;
 
 import com.roberthj.soundrecommender.models.entities.Playlist;
 import com.roberthj.soundrecommender.repositories.PlaylistsRepository;
@@ -38,11 +38,16 @@ public class PlaylistServiceImpl implements PlaylistService {
 
       var created = playlistsRepository.save(playlist);
 
-      soundIds.forEach(
-          soundId -> {
-            soundId.setPlaylistId(created.getId());
-            playlistsSoundsRepository.save(soundId);
-          });
+      //TODO: Can Improve this?
+      created.setSoundIds(
+          soundIds.stream()
+              .map(
+                  soundId -> {
+                    soundId.setPlaylistId(created.getId());
+                    playlistsSoundsRepository.save(soundId);
+                    return soundId;
+                  })
+              .toList());
 
       createdPlaylist = created;
 
