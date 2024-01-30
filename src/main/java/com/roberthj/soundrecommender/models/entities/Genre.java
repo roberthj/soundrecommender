@@ -11,10 +11,13 @@ public class Genre {
     @GeneratedValue(strategy= GenerationType.UUID)
     private String id;
 
-    @Column(name = "sound_id")
-    private String soundId;
+    //@Column(name = "sound_id")
+    //private String soundId;
 
     @Column(name = "genre")
     private String genre;
+
+    @ManyToOne
+    private Sound sound;
 
 }

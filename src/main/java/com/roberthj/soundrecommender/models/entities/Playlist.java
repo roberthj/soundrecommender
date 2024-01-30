@@ -17,7 +17,7 @@ public class Playlist {
     @Column(name = "title")
     private String title;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name="playlist_id")
     private List<PlaylistSound> soundIds;
 

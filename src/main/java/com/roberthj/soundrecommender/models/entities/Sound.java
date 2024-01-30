@@ -25,11 +25,11 @@ public class Sound {
     @Column(name = "duration_in_seconds")
     private int durationInSeconds;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name="sound_id")
     private List<Credit> credits;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name="sound_id")
     private List<Genre> genres;
 }

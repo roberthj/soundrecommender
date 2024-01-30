@@ -14,8 +14,8 @@ public class PlaylistSound {
     @Column(name = "id")
     private String id;
 
-    @Column(name = "playlist_id")
-    private String playlistId;
+    @ManyToOne
+    private Playlist playlist;
 
     @Column(name = "sound_id")
     private String soundId;
