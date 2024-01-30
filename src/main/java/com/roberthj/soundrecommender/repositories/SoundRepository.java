@@ -11,19 +11,39 @@ import java.util.List;
 @Repository
 public interface SoundRepository extends JpaRepository<Sound, String> {
 
-
   @Query(
-      value = "select s.* from sounds s\n"
-          + "join playlists_sounds ps on s.id = ps.sound_id\n"
-          + "where ps.playlist_id = :playlistId", nativeQuery = true)
+      value =
+          "select s.* from sounds s\n"
+              + "join playlists_sounds ps on s.id = ps.sound_id\n"
+              + "where ps.playlist_id = :playlistId",
+      nativeQuery = true)
   List<Sound> findSongsFromPlaylist(@Param("playlistId") String playlistId);
 
   @Query(
-          value = "select s.* from sounds s " +
-                  "join credits c on s.id = c.sound_id " +
-                  "where c.name in (:artists)", nativeQuery = true)
+      value =
+          "select s.* from sounds s "
+              + "join credits c on s.id = c.sound_id "
+              + "where c.name in (:artists)",
+      nativeQuery = true)
   List<Sound> findSongsByArtist(@Param("artists") List<String> artists);
-}
+  }
+
+//  @Query(
+//          value = "SELECT s FROM Sound s " +
+//                  "JOIN s.genres g" +
+//                  "JOIN FETCH s.genres " +
+//                  "WHERE s.id = :soundId")
+//
+//  List<Sound> findSoundById(@Param("soundId") String soundId);
+//}
+
+
+
+
+
+
+
+
 
 
 

@@ -4,10 +4,7 @@ import com.roberthj.soundrecommender.models.entities.*;
 import com.roberthj.soundrecommender.models.playlistdtos.CreatePlaylistRequest;
 import com.roberthj.soundrecommender.models.playlistdtos.PlaylistResponse;
 import com.roberthj.soundrecommender.models.playlistdtos.PlaylistResponseData;
-import com.roberthj.soundrecommender.models.sounddtos.CreateSoundRequest;
-import com.roberthj.soundrecommender.models.sounddtos.Credits;
-import com.roberthj.soundrecommender.models.sounddtos.SoundResponse;
-import com.roberthj.soundrecommender.models.sounddtos.SoundResponseData;
+import com.roberthj.soundrecommender.models.sounddtos.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -33,7 +30,7 @@ public class ObjectMappers {
         .toList();
   }
 
-  private static List<Credit> mapToCredits(List<Credits> credits) {
+  private static List<Credit> mapToCredits(List<CreateSoundRequestCredits> credits) {
     return credits.stream()
         .map(
             c -> {
@@ -73,7 +70,7 @@ public class ObjectMappers {
         sound.getCredits().stream()
             .map(
                 cred -> {
-                  var cre = new Credits();
+                  var cre = new SoundResponseCredits();
                   cre.setName(cred.getName());
                   cre.setRole(cred.getRole());
                   return cre;

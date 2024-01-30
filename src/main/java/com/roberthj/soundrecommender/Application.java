@@ -15,11 +15,8 @@ public class Application {
 }
 
 //TODO
-// Implement
-// Small modular loosely coupled pieces
 // Unit test everything
 // Testcontainers for Postgres
 // Exception handling
-// Validate input
 // Logging
 // One extra endpoint

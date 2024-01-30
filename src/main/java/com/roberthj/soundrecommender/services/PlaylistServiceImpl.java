@@ -26,6 +26,7 @@ public class PlaylistServiceImpl implements PlaylistService {
 
     var soundIds = playlist.getSoundIds();
 
+    //Connecting the child so hibernate can update the ids correctly after save
     soundIds.forEach(soundId  -> soundId.setPlaylist(playlist));
 
     return playlistsRepository.save(playlist);

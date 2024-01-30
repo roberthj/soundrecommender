@@ -1,10 +1,11 @@
 package com.roberthj.soundrecommender.models.entities;
 
 import jakarta.persistence.*;
-import lombok.Builder;
-import lombok.Data;
+import lombok.*;
 
-@Data
+@Getter
+@Setter
+@EqualsAndHashCode
 @Entity
 @Table(name="credits")
 public class Credit {

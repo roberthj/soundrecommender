@@ -1,13 +1,14 @@
 package com.roberthj.soundrecommender.models.entities;
 
 import jakarta.persistence.*;
-import lombok.Builder;
-import lombok.Data;
+import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@Data
+@Getter
+@Setter
+@EqualsAndHashCode
 @Entity
 @Table(name="sounds")
 public class Sound {

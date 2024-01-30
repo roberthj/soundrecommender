@@ -20,13 +20,11 @@ public class RecommendationServiceImpl implements RecommendationService{
 
     public List<Sound> getRecommendations(String playlistId) {
 
-
+        // get all sounds in playlist
         var soundsInPlaylist =
                 soundRepository.findSongsFromPlaylist(playlistId);
 
-        //Collect genres and credits
-
-        //Search for other songs with the same artists or genres
+        // Collect all artists
         var artistsInPlaylist =
                 soundsInPlaylist
                         .stream()
@@ -34,27 +32,21 @@ public class RecommendationServiceImpl implements RecommendationService{
                            return sound.getCredits()
                                     .stream()
                                     .map(Credit::getName);
-                        }).toList();
+                        })
+                        .distinct()
+                        .toList();
 
-        var genresInPlaylist = soundsInPlaylist
-                .stream()
-                .flatMap(sound -> {
-                    return sound.getGenres()
-                            .stream()
-                            .map(Genre::getGenre);
-                }).toList();
+        // Find all songs by the artists
+        var soundsByArtist = soundRepository.findSongsByArtist(artistsInPlaylist).stream().distinct().toList();
 
-
-        var soundsByArtist = soundRepository.findSongsByArtist(artistsInPlaylist);
-
-        //Exclude the songs in the playlist
+        //Songs that were already in the provided playlist
         var soundIdsInPlaylist =
-                soundsInPlaylist.stream().map(Sound::getId).toList();
+                soundsInPlaylist.stream().map(Sound::getId).distinct().toList();
 
+        // Return recommended songs, excluding the ones already in the provided playlist
         return soundsByArtist
                 .stream()
                 .filter(sound -> !soundIdsInPlaylist.contains(sound.getId()))
                         .toList();
-
     }
 }

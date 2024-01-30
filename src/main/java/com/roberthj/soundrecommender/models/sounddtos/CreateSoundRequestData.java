@@ -24,5 +24,5 @@ public class CreateSoundRequestData {
 
     @Valid
     @NotEmpty(message = "Credits is required.")
-    private List<Credits> credits;
+    private List<CreateSoundRequestCredits> credits;
 }
