@@ -1,4 +1,4 @@
-package com.roberthj.soundrecommender.models.playlistapiresponse;
+package com.roberthj.soundrecommender.models.playlistdtos;
 
 import lombok.Data;
 

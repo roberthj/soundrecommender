@@ -1,8 +1,9 @@
 package com.roberthj.soundrecommender.resource;
 
-import com.roberthj.soundrecommender.models.playlistapirequests.CreatePlaylistRequest;
-import com.roberthj.soundrecommender.models.playlistapiresponse.PlaylistResponse;
+import com.roberthj.soundrecommender.models.playlistdtos.CreatePlaylistRequest;
+import com.roberthj.soundrecommender.models.playlistdtos.PlaylistResponse;
 import com.roberthj.soundrecommender.service.PlaylistService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -26,12 +27,12 @@ public class PlaylistController {
         this.playlistService = playlistService;
     }
     @PostMapping(value="")
-    public ResponseEntity<PlaylistResponse> createPlaylist(@RequestBody
+    public ResponseEntity<PlaylistResponse> createPlaylist(@Valid  @RequestBody
     final CreatePlaylistRequest createPlaylistRequest){
 
-        var createdPlaylist = playlistService.createPlaylist(mapCreatePlaylistRequestToPlaylist(createPlaylistRequest));
+        var createdPlaylist = playlistService.createPlaylists(mapCreatePlaylistRequestToPlaylist(createPlaylistRequest));
 
-        return ResponseEntity.status(HttpStatus.OK).body(mapPlaylistToPlaylistResponse(List.of(createdPlaylist)));
+        return ResponseEntity.status(HttpStatus.OK).body(mapPlaylistToPlaylistResponse(createdPlaylist));
 
     }
 }

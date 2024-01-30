@@ -1,4 +1,4 @@
-package com.roberthj.soundrecommender.models.soundapiresponses;
+package com.roberthj.soundrecommender.models.sounddtos;
 
 import lombok.Data;
 import com.fasterxml.jackson.annotation.JsonProperty;

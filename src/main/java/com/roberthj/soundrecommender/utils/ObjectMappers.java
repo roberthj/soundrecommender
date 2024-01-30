@@ -1,56 +1,60 @@
 package com.roberthj.soundrecommender.utils;
 
 import com.roberthj.soundrecommender.models.entities.*;
-import com.roberthj.soundrecommender.models.playlistapirequests.CreatePlaylistRequest;
-import com.roberthj.soundrecommender.models.playlistapiresponse.PlaylistResponse;
-import com.roberthj.soundrecommender.models.playlistapiresponse.PlaylistResponseData;
-import com.roberthj.soundrecommender.models.soundapirequests.CreateSoundRequest;
-import com.roberthj.soundrecommender.models.soundapirequests.Credits;
-import com.roberthj.soundrecommender.models.soundapiresponses.SoundResponse;
-import com.roberthj.soundrecommender.models.soundapiresponses.SoundResponseData;
+import com.roberthj.soundrecommender.models.playlistdtos.CreatePlaylistRequest;
+import com.roberthj.soundrecommender.models.playlistdtos.PlaylistResponse;
+import com.roberthj.soundrecommender.models.playlistdtos.PlaylistResponseData;
+import com.roberthj.soundrecommender.models.sounddtos.CreateSoundRequest;
+import com.roberthj.soundrecommender.models.sounddtos.Credits;
+import com.roberthj.soundrecommender.models.sounddtos.SoundResponse;
+import com.roberthj.soundrecommender.models.sounddtos.SoundResponseData;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class ObjectMappers {
-  public static Sound mapCreateSoundRequestToSound(CreateSoundRequest createSoundRequest) {
+
+  public static List<Sound> mapCreateSoundRequestToSounds(CreateSoundRequest createSoundRequest) {
+
     var data = createSoundRequest.getData();
-    var cred = data.get(0).getCredits();
-    var gen = data.get(0).getGenres();
 
-    // TODO: fix these get(0)
-    // Try ModelMapper
+    return data.stream()
+        .map(
+            d -> {
+              var sound = new Sound();
 
-    var genres =
-        gen.stream()
-            .map(
-                g -> {
-                  var genre = new Genre();
-                  genre.setGenre(g);
-                  return genre;
-                })
-            .collect(Collectors.toList());
+              sound.setTitle(d.getTitle());
+              sound.setBpm(d.getBpm());
+              sound.setDurationInSeconds(d.getDuration_in_seconds());
+              sound.setGenres(mapToGenres(d.getGenres()));
+              sound.setCredits(mapToCredits(d.getCredits()));
+              return sound;
+            })
+        .toList();
+  }
 
-    var credits =
-        cred.stream()
-            .map(
-                c -> {
-                  var credit = new Credit();
-                  credit.setRole(c.getRole());
-                  credit.setName(c.getName());
-                  return credit;
-                })
-            .collect(Collectors.toList());
+  private static List<Credit> mapToCredits(List<Credits> credits) {
+    return credits.stream()
+        .map(
+            c -> {
+              var credit = new Credit();
+              credit.setRole(c.getRole());
+              credit.setName(c.getName());
+              return credit;
+            })
+        .toList();
+  }
 
-    var sound = new Sound();
+  private static List<Genre> mapToGenres(List<String> genres) {
 
-    sound.setTitle(data.get(0).getTitle());
-    sound.setBpm(data.get(0).getBpm());
-    sound.setDurationInSeconds(data.get(0).getDuration_in_seconds());
-    sound.setGenres(genres);
-    sound.setCredits(credits);
-
-    return sound;
+    return genres.stream()
+        .map(
+            g -> {
+              var genre = new Genre();
+              genre.setGenre(g);
+              return genre;
+            })
+        .toList();
   }
 
   public static SoundResponse mapSoundToSoundResponse(List<Sound> sounds) {
@@ -90,63 +94,55 @@ public class ObjectMappers {
     return soundResponseData;
   }
 
-  public static Playlist mapCreatePlaylistRequestToPlaylist(CreatePlaylistRequest createPlaylistRequest){
+  public static List<Playlist> mapCreatePlaylistRequestToPlaylist(
+      CreatePlaylistRequest createPlaylistRequest) {
 
-      var data = createPlaylistRequest.getData().get(0);
-      var soundIds =
-              data.getSounds()
-                      .stream()
-                      .toList();
+    var data = createPlaylistRequest.getData();
 
-      var soundsIds =
-              data.getSounds().stream()
-                      .map(
-                              c -> {
-                                  var playlistSounds = new PlaylistSound();
-                                  playlistSounds.setSoundId(c);
-                                  return playlistSounds;
-                              })
-                      .toList();
+    return data.stream()
+        .map(
+            d -> {
+              var playlist = new Playlist();
 
-
-
-      var playlist = new Playlist();
-
-      playlist.setTitle(data.getTitle());
-      playlist.setSoundIds(soundsIds);
-
-      return playlist;
-
+              playlist.setTitle(d.getTitle());
+              playlist.setSoundIds(mapToSoundIds(d.getSounds()));
+              return playlist;
+            })
+        .toList();
   }
-    public static PlaylistResponse mapPlaylistToPlaylistResponse(List<Playlist> playlist){
 
-        var playlistResponseData = playlist.stream().map(ObjectMappers::mapPlaylistToPlaylistResponseData).toList();
-        var playlistResponse = new PlaylistResponse();
+  private static List<PlaylistSound> mapToSoundIds(List<String> sounds) {
 
-        playlistResponse.setData(playlistResponseData);
+    return sounds.stream()
+        .map(
+            c -> {
+              var playlistSounds = new PlaylistSound();
+              playlistSounds.setSoundId(c);
+              return playlistSounds;
+            })
+        .toList();
+  }
 
-        return playlistResponse;
+  public static PlaylistResponse mapPlaylistToPlaylistResponse(List<Playlist> playlist) {
 
-    }
+    var playlistResponseData =
+        playlist.stream().map(ObjectMappers::mapPlaylistToPlaylistResponseData).toList();
+    var playlistResponse = new PlaylistResponse();
 
+    playlistResponse.setData(playlistResponseData);
 
-    private static PlaylistResponseData mapPlaylistToPlaylistResponseData(Playlist playlist){
+    return playlistResponse;
+  }
 
-      var soundIds =
-              playlist
-                      .getSoundIds()
-                      .stream()
-                      .map(PlaylistSound::getSoundId)
-                      .toList();
+  private static PlaylistResponseData mapPlaylistToPlaylistResponseData(Playlist playlist) {
 
-        var playlistResponseData = new PlaylistResponseData();
-            playlistResponseData.setId(playlist.getId());
-            playlistResponseData.setTitle((playlist.getTitle()));
-            playlistResponseData.setSoundIds(soundIds);
+    var soundIds = playlist.getSoundIds().stream().map(PlaylistSound::getSoundId).toList();
 
+    var playlistResponseData = new PlaylistResponseData();
+    playlistResponseData.setId(playlist.getId());
+    playlistResponseData.setTitle((playlist.getTitle()));
+    playlistResponseData.setSoundIds(soundIds);
 
-
-        return playlistResponseData;
-
-    }
+    return playlistResponseData;
+  }
 }

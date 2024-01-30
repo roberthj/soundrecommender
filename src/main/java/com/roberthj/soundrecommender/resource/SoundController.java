@@ -1,21 +1,17 @@
 package com.roberthj.soundrecommender.resource;
 
-import com.roberthj.soundrecommender.models.soundapirequests.CreateSoundRequest;
-import com.roberthj.soundrecommender.models.soundapiresponses.SoundResponse;
+import com.roberthj.soundrecommender.models.sounddtos.CreateSoundRequest;
+import com.roberthj.soundrecommender.models.sounddtos.SoundResponse;
 import com.roberthj.soundrecommender.service.RecommendationService;
 import com.roberthj.soundrecommender.service.SoundService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
-import static com.roberthj.soundrecommender.utils.ObjectMappers.mapCreateSoundRequestToSound;
+import static com.roberthj.soundrecommender.utils.ObjectMappers.mapCreateSoundRequestToSounds;
 import static com.roberthj.soundrecommender.utils.ObjectMappers.mapSoundToSoundResponse;
-
 @RestController
-// @RequestMapping("/v1") //I wanted to add versioning here, but did not want to break the postman
-// tests
 @RequestMapping("")
 public class SoundController {
 
@@ -29,17 +25,16 @@ public class SoundController {
 
 
   @PostMapping(value = "/admin/sounds")
-  public ResponseEntity<SoundResponse> createSound(
-      @RequestBody final CreateSoundRequest createSoundRequest) {
+  public ResponseEntity<SoundResponse> createSound(@Valid @RequestBody final CreateSoundRequest createSoundRequest) {
 
     // Validate payload
     // Try Alex's validation framework
 
     var createdSound =
-        soundService.createSound(mapCreateSoundRequestToSound(createSoundRequest));
+        soundService.createSounds((mapCreateSoundRequestToSounds(createSoundRequest)));
 
     return ResponseEntity.status(HttpStatus.CREATED)
-        .body(mapSoundToSoundResponse(List.of(createdSound)));
+        .body(mapSoundToSoundResponse(createdSound));
   }
 
   @GetMapping(value = "/sounds")
