@@ -5,7 +5,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication
-@EnableJpaRepositories(basePackages ={"com.roberthj.soundrecommender.repositories"})
 public class Application {
 
 	public static void main(String[] args) {
@@ -18,5 +17,4 @@ public class Application {
 // Unit test everything
 // Testcontainers for Postgres
 // Exception handling
-// Logging
 // One extra endpoint

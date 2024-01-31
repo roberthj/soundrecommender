@@ -26,24 +26,4 @@ public interface SoundRepository extends JpaRepository<Sound, String> {
               + "where c.name in (:artists)",
       nativeQuery = true)
   List<Sound> findSongsByArtist(@Param("artists") List<String> artists);
-  }
-
-//  @Query(
-//          value = "SELECT s FROM Sound s " +
-//                  "JOIN s.genres g" +
-//                  "JOIN FETCH s.genres " +
-//                  "WHERE s.id = :soundId")
-//
-//  List<Sound> findSoundById(@Param("soundId") String soundId);
-//}
-
-
-
-
-
-
-
-
-
-
-
+}

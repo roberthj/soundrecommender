@@ -76,15 +76,13 @@ Response: Will return a list of sounds from the same artists that are in the pro
 ## If I had more time I would have
 
 Created a more complex data model
- - Have a separate tables for genre and Artists
-
-Integration testing
- - Testing read and write to the tb using Java testcontainers or some in memory database
+ - Have separate tables for Genre and Artists
 
 More complete test coverage
- - I now did one or more examples od unit tests for each class, but added information about what more I would have tested with more time.
+ - I now did one or more examples of tests for each class, but added information about what more I would have tested with more time.
 
 Exception handling
   - I would put more thought into this
 
 Logging
+ - Use a logging library instead of System.out.println()

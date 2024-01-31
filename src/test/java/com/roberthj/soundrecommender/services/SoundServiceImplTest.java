@@ -38,7 +38,6 @@ class SoundServiceImplTest {
   @Test
   public void getSoundsShouldReturnListOfSounds(){
 
-    //No logic to test, but testing that soundRepository.findAll() is called
     when(soundRepository.findAll()).thenReturn(List.of(mockedSound("soundId")));
 
     var result = soundService.getSounds();

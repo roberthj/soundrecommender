@@ -4,8 +4,6 @@ package com.roberthj.soundrecommender.repositories;
 import com.roberthj.soundrecommender.models.entities.Credit;
 import com.roberthj.soundrecommender.models.entities.Genre;
 import com.roberthj.soundrecommender.models.entities.Sound;
-import org.hibernate.Hibernate;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

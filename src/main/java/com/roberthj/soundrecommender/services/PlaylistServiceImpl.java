@@ -11,8 +11,7 @@ import java.util.List;
 public class PlaylistServiceImpl implements PlaylistService {
   private final PlaylistsRepository playlistsRepository;
 
-  public PlaylistServiceImpl(
-      PlaylistsRepository playlistsRepository) {
+  public PlaylistServiceImpl(PlaylistsRepository playlistsRepository) {
     this.playlistsRepository = playlistsRepository;
   }
 
@@ -26,15 +25,9 @@ public class PlaylistServiceImpl implements PlaylistService {
 
     var soundIds = playlist.getSoundIds();
 
-    //Connecting the child so hibernate can update the ids correctly after save
-    soundIds.forEach(soundId  -> soundId.setPlaylist(playlist));
+    // Connecting the child so hibernate can update the ids correctly after save
+    soundIds.forEach(soundId -> soundId.setPlaylist(playlist));
 
-    return playlistsRepository.save(playlist);
-
-
-
-//    } catch (DataIntegrityViolationException e) {
-//      // TODO: What other exceptions?
-
+      return playlistsRepository.save(playlist);
   }
 }

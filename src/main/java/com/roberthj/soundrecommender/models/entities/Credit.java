@@ -15,8 +15,6 @@ public class Credit {
     @Column(name = "id")
     private String id;
 
-//    @Column(name="sound_id")
-//    private String soundId;
     @ManyToOne
     private Sound sound;
 

@@ -20,7 +20,7 @@ class RecommendationServiceImplTest {
 
     @Disabled("Test to implemented")
     @Test
-    public void verifyThatGetRecommendationsReturnAListofSounds(){
+    public void verifyThatGetRecommendationsReturnAListOfSounds(){
     }
 
     @Disabled("Test to implemented")
