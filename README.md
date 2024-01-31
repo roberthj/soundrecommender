@@ -5,12 +5,12 @@ The Sound Recommender is service where users can create sounds and playlist.
 Users can also get sounds recommended based on a provided playlist.
 
 On a high level the project uses:
- - **Java 17** with **Spring Boot** framework
+ - **Java 21** with **Spring Boot** framework
  - **Maven** for build and dependency management
  - **Hibernate/JPA** for interacting with the database
- - **Junit5*** and **Test Containers** for testing
+ - **Junit5** and **Test Containers** for testing
  - **Postgres** database
- - **Docker Compose** to spin up the database
+ - **Docker Compose** to spin up local database
  - **FlyWay** for database migrations
 
 # How to run locally
@@ -19,8 +19,29 @@ On a high level the project uses:
 
 ### Java 17
 
-Install Java 17 and configure your IDE to use it for this 
+If needed, install Java 21 (earlier versions may also work)
 
+If you need to install Java the easiest way may be to use **Homebrew** to install. If you prefer to install manually instead, have a look [here](https://www.codejava.net/java-se/setup-openjdk-21-on-macos)
+
+**Homebrew** can be found [here](https://brew.sh/)
+
+Run this command in your terminal to install Java
+```console 
+brew install openjdk@21
+```
+Set the **JAVA_HOME** environment variable
+```console 
+export JAVA_HOME=/usr/local/opt/openjdk@21
+```
+Run the following command to apply the changes
+
+```console 
+source ~/.bash_profile   # or source ~/.zshrc if using Zsh
+```
+Verify the installation
+```console 
+java -version
+```
 
 
 ### Docker desktop
@@ -28,7 +49,7 @@ Ensure that Docker is installed on your laptop.
 You can download and install it from the official Docker website: https://www.docker.com/products/docker-desktop
 
 ### Build the project
-Run this Maven command in your terminal in the project root folder.
+Run this **Maven** command in your terminal in the project root folder.
 ```console 
 mvn clean install
 ```
@@ -36,8 +57,6 @@ mvn clean install
 
 
 If you need to install Maven the easiest way may be to use **Homebrew** to install by following [this guide](https://mkyong.com/maven/install-maven-on-mac-osx/)
-
-**Homebrew** can be found [here](https://brew.sh/)
 
 Other options for installing **Maven** can be found [here](https://www.baeldung.com/install-maven-on-windows-linux-mac)
 
