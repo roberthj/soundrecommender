@@ -14,5 +14,3 @@ spring:
 server:
   error:
     include-message: always
-log4j:
-  rootLogger: INFO, consoleAppender

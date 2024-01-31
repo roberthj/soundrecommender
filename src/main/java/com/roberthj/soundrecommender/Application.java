@@ -13,4 +13,3 @@ public class Application {
 
 }
 
-// One extra endpoint
