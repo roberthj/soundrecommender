@@ -8,4 +8,6 @@ public interface SoundService {
     List<Sound> createSounds(List<Sound> sounds);
 
     List<Sound> getSounds();
+
+    List<Sound> getSoundsByArtist(String artistName);
 }

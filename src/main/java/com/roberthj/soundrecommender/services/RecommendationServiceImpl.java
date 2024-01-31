@@ -21,7 +21,7 @@ public class RecommendationServiceImpl implements RecommendationService{
 
         // get all sounds in playlist
         var soundsInPlaylist =
-                soundRepository.findSongsFromPlaylist(playlistId);
+                soundRepository.findSoundsFromPlaylist(playlistId);
 
         // Collect all artists
         var artistsInPlaylist =
@@ -36,7 +36,7 @@ public class RecommendationServiceImpl implements RecommendationService{
                         .toList();
 
         // Find all songs by the artists
-        var soundsByArtist = soundRepository.findSongsByArtist(artistsInPlaylist).stream().distinct().toList();
+        var soundsByArtist = soundRepository.findSoundsByArtists(artistsInPlaylist).stream().distinct().toList();
 
         //Songs that were already in the provided playlist
         var soundIdsInPlaylist =

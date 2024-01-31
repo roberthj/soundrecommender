@@ -7,4 +7,5 @@ import java.util.List;
 public interface PlaylistService {
 
     List<Playlist> createPlaylists(List<Playlist> playlist);
+
 }

@@ -99,7 +99,7 @@ On startup a sql migration script will run and generate the database tables in t
 ### Create sound
 Call this endpoint to create new sounds.
 
-Endpoint: http://localhost:8080/v1/admin/sounds
+Endpoint: http://localhost:8080/admin/sounds
 
 Method: Post
 
@@ -156,7 +156,7 @@ Response:
 ### Get sounds
 Call this endpoint to fetch all existing sounds from the database.
 
-Endpoint: http://localhost:8080/v1/sounds
+Endpoint: http://localhost:8080/sounds
 
 Method: GET
 
@@ -187,10 +187,46 @@ Response:
 }
 ```
 
+### Get sounds by artist (Extra from assignment spec)
+
+By adding a request parameter to the souns endpoint you can fetch sound from a specific artist
+
+Endpoint: http://localhost:8080/sounds/artist=Ooyya
+
+Method: GET
+
+Response:
+``` json
+{
+    "data": [
+        {
+            "id": "01274cb7-a0ca-4997-a571-2f5b6d8be4af",
+            "title": "New song",
+            "bpm": 120,
+            "genres": [
+                "pop"
+            ],
+            "duration_in_seconds": 120,
+            "credits": [
+                {
+                    "name": "King Sis",
+                    "role": "VOCALIST"
+                },
+                {
+                    "name": "Ooyy",
+                    "role": "PRODUCER"
+                }
+            ]
+        }
+    ]
+}
+```
+
+
 ### Create playlist
 Call this endpoint to create a playlist of existing sounds
 
-Endpoint: http://localhost:8080/v1/playlists
+Endpoint: http://localhost:8080/playlists
 
 Method: POST
 
@@ -225,7 +261,7 @@ Response:
 Call this endpoint to get recommended sounds based on a provided playlist.
 This will return other sounds from the same artists that appear in the playlist.
 
-Endpoint: http://localhost:8080/v1/sounds/recommended?playlistId={{playlistId}}
+Endpoint: http://localhost:8080/sounds/recommended?playlistId={{playlistId}}
 
 Method: GET
 
@@ -268,9 +304,13 @@ These are some things that I would focus if I had more time on to make this prod
 **More complete test coverage**
  - I now wrote one or a couple examples of tests for each class, but added information about what more I would have tested with more time.
 
+**Add versioning to the API**
+ - I did not do this because I did not want to risk breaking the postman test suite.
+
 **Exception handling**
   - I would put more thought into this
 
 **Logging**
  - Use a logging library instead of using System.out.println()
  - Put more thought into what I would need to log
+

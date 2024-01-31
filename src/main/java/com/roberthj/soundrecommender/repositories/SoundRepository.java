@@ -17,7 +17,7 @@ public interface SoundRepository extends JpaRepository<Sound, String> {
               + "join playlists_sounds ps on s.id = ps.sound_id\n"
               + "where ps.playlist_id = :playlistId",
       nativeQuery = true)
-  List<Sound> findSongsFromPlaylist(@Param("playlistId") String playlistId);
+  List<Sound> findSoundsFromPlaylist(@Param("playlistId") String playlistId);
 
   @Query(
       value =
@@ -25,5 +25,15 @@ public interface SoundRepository extends JpaRepository<Sound, String> {
               + "join credits c on s.id = c.sound_id "
               + "where c.name in (:artists)",
       nativeQuery = true)
-  List<Sound> findSongsByArtist(@Param("artists") List<String> artists);
+  List<Sound> findSoundsByArtists(@Param("artists") List<String> artists);
+  @Query(
+          value =
+                  "select s.* from sounds s "
+                          + "join credits c on s.id = c.sound_id "
+                          + "where c.name = (:artist)",
+          nativeQuery = true)
+  List<Sound> findSoundsByArtist(@Param("artist") String artist);
 }
+
+
+

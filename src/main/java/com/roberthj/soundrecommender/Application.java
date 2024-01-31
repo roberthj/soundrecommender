@@ -13,8 +13,4 @@ public class Application {
 
 }
 
-//TODO
-// Unit test everything
-// Testcontainers for Postgres
-// Exception handling
 // One extra endpoint

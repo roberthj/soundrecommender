@@ -49,8 +49,12 @@ public class SoundController {
   }
 
   @GetMapping(value = "/sounds")
-  public ResponseEntity<SoundResponse> getSounds() {
+  public ResponseEntity<SoundResponse> getSounds(@RequestParam(required = false) String artist) {
 
+    if(artist != null) {
+      return ResponseEntity.status(HttpStatus.OK)
+              .body(mapSoundToSoundResponse(soundService.getSoundsByArtist(artist)));
+    }
     return ResponseEntity.status(HttpStatus.OK)
         .body(mapSoundToSoundResponse(soundService.getSounds()));
   }
