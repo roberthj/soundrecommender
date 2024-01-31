@@ -4,6 +4,7 @@ package com.roberthj.soundrecommender.repositories;
 import com.roberthj.soundrecommender.models.entities.Credit;
 import com.roberthj.soundrecommender.models.entities.Genre;
 import com.roberthj.soundrecommender.models.entities.Sound;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -82,6 +83,27 @@ public class SoundRepositoryIT {
                 fetchedSound.getCredits().get(0).getSound().getId());
 
   }
+
+    @Disabled("To be implemented")
+    @Test
+    @Transactional
+    void findSoundsFromPlaylistShouldReturnCorrectListOfSounds() {
+
+    }
+    @Disabled("To be implemented")
+    @Test
+    @Transactional
+    void findSoundsByArtistsShouldReturnCorrectListOfSounds() {
+
+    }
+
+    @Disabled("To be implemented")
+    @Test
+    @Transactional
+    void findSoundsByArtistShouldReturnCorrectListOfSounds() {
+
+    }
+
 
 
     private Sound mockedSound(String soundId) {
