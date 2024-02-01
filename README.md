@@ -17,7 +17,7 @@ On a high level the project uses:
 
 ## Prerequisites
 
-### Java 17
+### Java 21
 
 If needed, install Java 21 (earlier versions may also work)
 
@@ -73,7 +73,7 @@ docker-compose up -d
 
 Open the project in your favourite IDE.
 
-Configure the IDE to use Java 17 for this project.
+Configure the IDE to use Java 21 for this project.
 
 The entrypoint for the application is the file 
 ```src/main/java/com/roberthj/soundrecommender/Application.java```
